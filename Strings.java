@@ -60,6 +60,35 @@ public class Strings {
         return sb.toString();
     }
 
+    public static String compress(String str) {
+        StringBuilder newStr = new StringBuilder("");
+
+        for (int i = 0; i < str.length(); i++) {
+            int count = 1;
+
+            while (i < str.length() - 1 && str.charAt(i) == str.charAt(i + 1)) {
+                count++;
+                i++;
+            }
+            newStr.append(str.charAt(i));
+            if (count > 1) {
+                newStr.append(count);
+            }
+        }
+        return newStr.toString();
+    }
+
+    public static int lowerCaseVowels(String str) {
+        int count = 0;
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) == 'i' || str.charAt(i) == 'o' || str.charAt(i) == 'u' ||
+                    str.charAt(i) == 'a' || str.charAt(i) == 'e') {
+                count++;
+            }
+        }
+        return count;
+    }
+
     public static void main(String[] args) {
         String str = "noon";
         System.out.println(isPalindrome(str));
@@ -73,5 +102,9 @@ public class Strings {
 
         String newString = "my NAME is akshi aHUJA";
         System.out.println(toUpperCase(newString));
+
+        String toCompressString = "aaabbcdddaa";
+        System.out.println(compress(toCompressString));
+        System.out.println(lowerCaseVowels(str));
     }
 }
