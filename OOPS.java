@@ -1,6 +1,17 @@
 public class OOPS {
+    public static void main(String[] args) {
 
+    }
 }
+
+// class BankAccount {
+// public String username;
+// private String password;
+
+// void setPassword(String pwd) {
+// password = pwd;
+// }
+// }
 
 class Pen {
     String color;
@@ -15,12 +26,12 @@ class Pen {
     }
 }
 
-class Student {
-    String name;
-    int age;
-    double percentage;
+// class Student {
+// String name;
+// int age;
+// double percentage;
 
-    void calcPercentage(int phy, int chm, int maths) {
-        percentage = (double) (phy + chm + maths) / 3;
-    }
-}
+// void calcPercentage(int phy, int chm, int maths) {
+// percentage = (double) (phy + chm + maths) / 3;
+// }
+// }
