@@ -52,6 +52,51 @@ public class Recursion01 {
         return fn;
     }
 
+    public static boolean isSorted(int arr[], int i) {
+        // base case
+        if (i == arr.length - 1)
+            return true;
+        // kaam
+        if (arr[i] > arr[i + 1])
+            return false;
+        return isSorted(arr, i + 1);
+    }
+
+    public static int firstOccurence(int arr[], int i, int key) {
+
+        // base case
+        if (i == arr.length - 1 && arr[i] != key) {
+            return -1;
+        }
+
+        // kaam
+        if (arr[i] == key) {
+            return i;
+        }
+        return firstOccurence(arr, i + 1, key);
+
+    }
+
+    public static int lastOccurence(int arr[], int i, int key) {
+
+        // base case
+        if (i > arr.length - 1) {
+            return -1;
+        }
+
+        // kaam
+        int isFound = lastOccurence(arr, i + 1, key);
+        if (isFound != -1) {
+            return isFound;
+        }
+
+        if (arr[i] == key) {
+            return i;
+        }
+
+        return isFound;
+    }
+
     public static void main(String[] args) {
         // int n = 10;
         // printDec(n);
@@ -61,6 +106,15 @@ public class Recursion01 {
         // System.out.println(factorial(5));
         // System.out.println(sumOfN(5));
 
-        System.out.println(fib(25));
+        // System.out.println(fib(25));
+
+        int arr[] = { 2, 4, 6, 8, 9, 1, 9, 10 };
+
+        System.out.println(isSorted(arr, 0));
+
+        System.out.println(firstOccurence(arr, 0, 10));
+
+        int arr01[] = { 1, 2, 3, 4, 1, 5 };
+        System.out.println(lastOccurence(arr01, 0, 1));
     }
 }
