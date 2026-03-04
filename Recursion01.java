@@ -97,6 +97,32 @@ public class Recursion01 {
         return isFound;
     }
 
+    public static int powerOfN(int x, int n) {
+        // base case
+        if (n == 1) {
+            return x;
+        }
+        // kaam
+        return x * powerOfN(x, n - 1);
+    }
+
+    public static int optimizedPower(int a, int n) {
+
+        // base case
+        if (n == 1) {
+            return a;
+        }
+
+        // kaam
+        int halfPower = optimizedPower(a, n / 2);
+        int halPowerSq = halfPower * halfPower;
+        if (n % 2 != 0) {
+            halPowerSq = a * halPowerSq;
+        }
+
+        return halPowerSq;
+    }
+
     public static void main(String[] args) {
         // int n = 10;
         // printDec(n);
@@ -108,13 +134,16 @@ public class Recursion01 {
 
         // System.out.println(fib(25));
 
-        int arr[] = { 2, 4, 6, 8, 9, 1, 9, 10 };
+        // int arr[] = { 2, 4, 6, 8, 9, 1, 9, 10 };
 
-        System.out.println(isSorted(arr, 0));
+        // System.out.println(isSorted(arr, 0));
 
-        System.out.println(firstOccurence(arr, 0, 10));
+        // System.out.println(firstOccurence(arr, 0, 10));
 
-        int arr01[] = { 1, 2, 3, 4, 1, 5 };
-        System.out.println(lastOccurence(arr01, 0, 1));
+        // int arr01[] = { 1, 2, 3, 4, 1, 5 };
+        // System.out.println(lastOccurence(arr01, 0, 1));
+
+        System.out.println(powerOfN(2, 10));
+        System.out.println(optimizedPower(2, 5));
     }
 }
