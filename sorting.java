@@ -43,7 +43,7 @@ public class sorting {
     public static void insertionSort(Integer arr[]) {
 
         for (int i = 1; i < arr.length; i++) {
-            int curr = i;
+            int curr = arr[i];
             int prev = i - 1;
             while (prev >= 0 && arr[prev] > curr) {
                 arr[prev + 1] = arr[prev];
@@ -72,7 +72,7 @@ public class sorting {
 
         int j = 0;
         for (int i = 0; i < array.length; i++) {
-            if (array[i] > 0) {
+            while (array[i] > 0) {
                 arr[j] = i;
                 array[i]--;
                 j++;
