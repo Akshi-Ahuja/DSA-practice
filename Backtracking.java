@@ -111,6 +111,18 @@ public class Backtracking {
 
     static int count = 0;
 
+    public static int gridWays(int i, int j, int n, int m) {
+        // base case
+        if (i == n - 1 && j == m - 1) {
+            return 1;
+        } else if (i == n || j == m) {
+            return 0;
+        }
+
+        // recursion
+        return gridWays(i + 1, j, n, m) + gridWays(i, j + 1, n, m);
+    }
+
     public static void main(String[] args) {
         // int arr[] = new int[5]; // empty array
         // changeArray(arr, 0, 1);
@@ -132,12 +144,17 @@ public class Backtracking {
             }
         }
 
-        if (nQueens(board, 0)) {
-            System.out.println("Sollution is possible: ");
-            printBoard(board);
-        } else {
-            System.out.println("Sollution is not possible!");
-        }
+        // if (nQueens(board, 0)) {
+        // System.out.println("Sollution is possible: ");
+        // printBoard(board);
+        // } else {
+        // System.out.println("Sollution is not possible!");
+        // }
         // System.out.println("Total ways to solve n queens = " + count);
+
+        // Q: Grid Ways
+
+        int nn = 3, m = 3;
+        System.out.println(gridWays(0, 0, nn, m));
     }
 }
