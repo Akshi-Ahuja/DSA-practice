@@ -140,12 +140,11 @@ public class BacktrackingAssignment {
                 { 0, 1, 0, 0 },
                 { 1, 1, 1, 1 }
         };
-        int n = maze.length;
 
-        // solveMaze(maze);
+        solveMaze(maze);
 
         // Q2: Keypad Combinations
-        // findCombinations("23");
+        findCombinations("23");
 
         // Q3: Knight's Tour
         int len = 6;
