@@ -2,6 +2,7 @@ package LinkedList;
 
 public class Linkedlist {
 
+    // blue print of node objects so we make a class for it.
     public static class Node {
         int data;
         Node next;
@@ -197,6 +198,157 @@ public class Linkedlist {
         return;
     }
 
+    public Node findMid(Node head) { // helper
+        Node slow = head;
+        Node fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+
+    public boolean checkPalindrome() {
+        // corner case
+        if (head == null && head.next == null) {
+            return true;
+        }
+
+        // 1. find mid
+        Node midNode = findMid(head);
+
+        // 2. reverse 2nd falf
+        Node prev = null;
+        Node curr = midNode;
+        Node next;
+        while (curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        Node right = prev; // right half's head
+        Node left = head;
+
+        // 3. check left half and right half
+        while (right != null) {
+            if (left.data != right.data)
+                return false;
+            left = left.next;
+            right = right.next;
+        }
+        return true;
+    }
+
+    public static boolean isCycle() {
+        Node slow = head;
+        Node fast = head;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+
+            if (slow == fast) {
+                return true; // cycle exists
+            }
+        }
+
+        return false; // cycle doesn't exist
+    }
+
+    public static void removeCycle() {
+        // 1. detect cycle
+        Node slow = head;
+        Node fast = head;
+        boolean detected = false;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+
+            if (slow == fast) {
+                detected = true;
+                break; // we want slow to become head but fast should continue from here only so BREAK
+                       // here
+            }
+        }
+        if (detected == false)
+            return;
+
+        // 2. find last node
+        slow = head;
+        Node prev = null;
+        while (slow != fast) {
+            slow = slow.next;
+            prev = fast;
+            fast = fast.next;
+        }
+
+        // 3. remove cycle -> last.next = null
+        prev.next = null;
+    }
+
+    private Node getMid(Node head) {
+        Node slow = head;
+        Node fast = head.next;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow; // mid node
+    }
+
+    private Node merge(Node head1, Node head2) {
+        Node mergedLL = new Node(-1);
+        Node temp = mergedLL;
+
+        while (head1 != null && head2 != null) {
+            if (head1.data < head2.data) {
+                temp.next = head1;
+                head1 = head1.next;
+                temp = temp.next;
+            } else {
+                temp.next = head2;
+                head2 = head2.next;
+                temp = temp.next;
+            }
+        }
+
+        while (head1 != null) {
+            temp.next = head1;
+            head1 = head1.next;
+            temp = temp.next;
+        }
+
+        while (head2 != null) {
+            temp.next = head2;
+            head2 = head2.next;
+            temp = temp.next;
+        }
+
+        return mergedLL.next;
+    }
+
+    public Node mergeSort(Node head) { // O(n log n)
+        // base case
+        if (head == null || head.next == null) {
+            return head;
+        }
+
+        // find mid
+        Node mid = getMid(head);
+
+        // left and right MS
+        Node rightHead = mid.next;
+        mid.next = null;
+        Node newLeft = mergeSort(head);
+        Node newRight = mergeSort(rightHead);
+
+        // Merge left and right half
+        return merge(newLeft, newRight);
+    }
+
     public static void main(String[] args) {
         // Linkedlist ll = new Linkedlist();
         // ll.head = new Node(1);
@@ -214,15 +366,15 @@ public class Linkedlist {
         // ll.addLast(3);
         // ll.addLast(4);
 
-        Linkedlist ll2 = new Linkedlist();
-        ll2.addFirst(2);
-        ll2.addFirst(1);
-        ll2.addLast(4);
-        ll2.addLast(5);
-        // ll2.printLL();
+        // Linkedlist ll2 = new Linkedlist();
+        // ll2.addFirst(2);
+        // ll2.addFirst(1);
+        // ll2.addLast(4);
+        // ll2.addLast(5);
+        // // ll2.printLL();
 
-        ll2.add(2, 3);
-        ll2.printLL();
+        // ll2.add(2, 3);
+        // ll2.printLL();
         // System.out.println(ll2.size);
 
         // System.out.println("Removed first element: " + ll2.removeFirst());
@@ -242,7 +394,40 @@ public class Linkedlist {
         // ll2.reverse();
         // ll2.printLL();
 
-        ll2.deleteFromEnd(3);
-        ll2.printLL();
+        // ll2.deleteFromEnd(3);
+        // ll2.printLL();
+
+        // Linkedlist ll = new Linkedlist();
+        // ll.addLast(1);
+        // ll.addLast(2);
+        // ll.addLast(1);
+        // // ll.addLast(1);
+        // ll.printLL();
+
+        // System.out.println(ll.checkPalindrome());
+
+        // head = new Node(1);
+        // Node temp = new Node(2);
+        // head.next = temp;
+        // head.next.next = new Node(3);
+        // head.next.next.next = new Node(4);
+        // head.next.next.next.next = temp;
+        // // 1->2->3->4->2
+        // System.out.println(isCycle());
+        // removeCycle();
+        // System.out.println(isCycle());
+
+        Linkedlist ll = new Linkedlist();
+        ll.addFirst(9);
+        ll.addFirst(1);
+        ll.addFirst(6);
+        ll.addFirst(4);
+        // ll.addFirst(8);
+        // 5>4>3>2>1>null
+        ll.printLL();
+
+        head = ll.mergeSort(head);
+        ll.printLL();
+
     }
 }
