@@ -12,6 +12,7 @@ public class Assignment {
         }
     }
 
+    // 1) Intersection of 2 SLL
     public Node intersectionPoint(Node head1, Node head2) {
         while (head2 != null) {
             Node temp = head1;

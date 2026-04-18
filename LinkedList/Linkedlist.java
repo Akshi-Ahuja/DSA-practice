@@ -389,6 +389,43 @@ public class Linkedlist {
         }
     }
 
+    public void printMSkipN(int n, int m) {
+        Node temp = head;
+        while (temp != null) {
+            for (int i = 1; i <= m; i++) {
+                System.out.print(temp.data + "->");
+                temp = temp.next;
+            }
+            for (int i = 1; i <= n; i++) {
+                temp = temp.next;
+            }
+        }
+    }
+
+    public void deleteMafterN(int m, int n) {
+        Node temp = head;
+        while (temp != null) {
+            // skip m nodes
+            for (int i = 1; i < m && temp != null; i++) {
+                temp = temp.next;
+            }
+
+            // check if temp is null return
+            if (temp == null)
+                return;
+
+            // skip n nodes
+            Node t = temp.next;
+            for (int i = 1; i <= n && temp != null; i++) {
+                t = t.next;
+            }
+
+            // connect
+            temp.next = t;
+            temp = t;
+        }
+    }
+
     public static void main(String[] args) {
         // Linkedlist ll = new Linkedlist();
         // ll.head = new Node(1);
@@ -469,16 +506,31 @@ public class Linkedlist {
         // head = ll.mergeSort(head);
         // ll.printLL();
 
+        // ll.addLast(1);
+        // ll.addLast(2);
+        // ll.addLast(3);
+        // ll.addLast(4);
+        // ll.addLast(5);
+        // // 1>2>3>4>5>null
+        // ll.printLL();
+
+        // ll.zigZag();
+        // ll.printLL();
+
         ll.addLast(1);
         ll.addLast(2);
         ll.addLast(3);
         ll.addLast(4);
         ll.addLast(5);
-        // 1>2>3>4>5>null
+        ll.addLast(6);
+        ll.addLast(7);
+        ll.addLast(8);
+        ll.addLast(9);
+        ll.addLast(10);
         ll.printLL();
 
-        ll.zigZag();
+        // ll.printMSkipN(2, 3);
+        ll.deleteMafterN(3, 2);
         ll.printLL();
-
     }
 }
