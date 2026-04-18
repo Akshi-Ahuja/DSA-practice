@@ -349,6 +349,46 @@ public class Linkedlist {
         return merge(newLeft, newRight);
     }
 
+    public void zigZag() {
+        // find mid
+        Node slow = head;
+        Node fast = head.next;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        Node mid = slow;
+
+        // reverse the 2nd half
+        Node prev = null;
+        Node curr = mid.next;
+        mid.next = null;
+        Node next;
+
+        while (curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+
+        Node left = head;
+        Node right = prev;
+        Node nextL, nextR;
+
+        // alternate merging - zigzag merge
+        while (left != null && right != null) {
+            nextL = left.next;
+            left.next = right;
+            nextR = right.next;
+            right.next = nextL;
+
+            left = nextL;
+            right = nextR;
+        }
+    }
+
     public static void main(String[] args) {
         // Linkedlist ll = new Linkedlist();
         // ll.head = new Node(1);
@@ -418,15 +458,26 @@ public class Linkedlist {
         // System.out.println(isCycle());
 
         Linkedlist ll = new Linkedlist();
-        ll.addFirst(9);
-        ll.addFirst(1);
-        ll.addFirst(6);
-        ll.addFirst(4);
-        // ll.addFirst(8);
-        // 5>4>3>2>1>null
+        // ll.addFirst(9);
+        // ll.addFirst(1);
+        // ll.addFirst(6);
+        // ll.addFirst(4);
+        // // ll.addFirst(8);
+        // // 5>4>3>2>1>null
+        // ll.printLL();
+
+        // head = ll.mergeSort(head);
+        // ll.printLL();
+
+        ll.addLast(1);
+        ll.addLast(2);
+        ll.addLast(3);
+        ll.addLast(4);
+        ll.addLast(5);
+        // 1>2>3>4>5>null
         ll.printLL();
 
-        head = ll.mergeSort(head);
+        ll.zigZag();
         ll.printLL();
 
     }
