@@ -47,6 +47,43 @@ public class Stack03 {
         }
     }
 
+    public static void stocksSpan(int stocks[], int span[]) {
+        Stack<Integer> s = new Stack<>();
+        s.push(0);
+        span[0] = 1;
+
+        for (int i = 0; i < stocks.length; i++) {
+            int currPrice = stocks[i];
+            while (!s.isEmpty() && currPrice >= stocks[s.peek()]) {
+                s.pop();
+            }
+
+            if (s.isEmpty()) {
+                span[i] = i + 1;
+            } else {
+                int prevHigh = s.peek();
+                span[i] = i - prevHigh;
+            }
+            s.push(i);
+        }
+    }
+
+    public static void nextGreaterElements(int arr[], int result[]) {
+        Stack<Integer> s = new Stack<>();
+        for (int i = arr.length - 1; i >= 0; i--) {
+            while (!s.isEmpty() && arr[i] >= arr[s.peek()]) {
+                s.pop();
+            }
+
+            if (s.isEmpty()) {
+                result[i] = -1;
+            } else {
+                result[i] = arr[s.peek()];
+            }
+            s.push(i);
+        }
+    }
+
     public static void main(String[] args) {
         Stack<Integer> s = new Stack<>();
         s.push(1);
@@ -68,6 +105,28 @@ public class Stack03 {
 
         reverseStack(s2);
         printStack(s2);
+
+        // Stocks Span
+        int stocks[] = { 100, 80, 60, 70, 60, 85, 100 };
+        int span[] = new int[stocks.length];
+
+        stocksSpan(stocks, span);
+
+        for (int i = 0; i < span.length; i++) {
+            System.out.print(span[i] + " ");
+        }
+        System.out.println();
+
+        // Next Greater Element
+        int arr[] = { 6, 8, 0, 1, 3 };
+        int nextGreater[] = new int[arr.length];
+
+        nextGreaterElements(arr, nextGreater);
+
+        for (int i = 0; i < nextGreater.length; i++) {
+            System.out.print(nextGreater[i] + " ");
+        }
+        System.out.println();
 
     }
 }
